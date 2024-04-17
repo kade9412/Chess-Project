@@ -1,0 +1,25 @@
+body{
+    display:flex;
+    justify-content: center;
+    
+}
+#ChessBoard{
+    height:800px;
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 10px  solid black;
+}
+.White,.Black{
+    width:100px;
+    height: 100px;
+    
+}
+.White{
+    background-color: lightyellow;
+    
+}
+.Black{
+    background-color: rgb(64, 169, 64);
+}
