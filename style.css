@@ -23,3 +23,9 @@ body{
 .Black{
     background-color: rgb(64, 169, 64);
 }
+img{
+    height: 100px;
+    width:100px;
+    user-select: none;
+
+}
