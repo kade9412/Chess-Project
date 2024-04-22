@@ -14,16 +14,15 @@ let piece;
 let place;
 document.addEventListener('dragstart',(ev)=>{
     piece = ev.target;
-    
+
 });
 
 document.addEventListener('dragenter',(ev)=>{
     place=ev.target
-    console.log(place)
     
 })
 document.addEventListener('dragend',(ev)=>{
-    if (place.childElementCount == 0){
+    if (place.childElementCount == 0 && (place.className == "White" || place.className == "Black")){
         place.appendChild(piece);
     }else{
         console.log("invalid")
