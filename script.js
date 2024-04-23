@@ -1,19 +1,10 @@
-const B_Rook_L = document.getElementById("B_Rook_L");
-const B_Rook_R = document.getElementById("B_Rook_R");
-
-const B_Knight_L = document.getElementById("B_Knight_L");
-const B_Knight_R = document.getElementById("B_Knight_R");
-
-const B_Bishop_L = document.getElementById("B_Bishop_L");
-const B_Bishop_R = document.getElementById("B_Bishop_R");
-
-const B_Queen = document.getElementById("B_Queen");
-const B_King = document.getElementById("B_King");
-
+const lib = ['a','b','c','d','e','f','g','h']
 let piece;
 let place;
+
 document.addEventListener('dragstart',(ev)=>{
-    piece = ev.target;
+    selection = ev.target;
+    piece = selection.className;
 
 });
 
@@ -23,9 +14,38 @@ document.addEventListener('dragenter',(ev)=>{
 })
 document.addEventListener('dragend',(ev)=>{
     if (place.childElementCount == 0 && (place.className == "White" || place.className == "Black")){
-        place.appendChild(piece);
+        if (piece == "Pawn"){
+            if(place.id == (lib[1]+"3")){
+
+                console.log("pawn");
+                place.appendChild(selection);
+            }
+        }
+        if (piece == "Rook"){
+            console.log("Rook");
+            place.appendChild(selection);
+        }
+        if (piece == "Kinght"){
+            console.log("Kinght");
+            place.appendChild(selection);
+        }
+        if (piece == "Bishop"){
+            console.log("Bishop");
+            place.appendChild(selection);
+        }
+        if (piece == "Queen"){
+            console.log("Queen");
+            place.appendChild(selection);
+        }
+        if (piece == "King"){
+            console.log("King");
+            place.appendChild(selection);
+        }
+        
     }else{
         console.log("invalid")
     }
     
 })
+
+
