@@ -1,3 +1,6 @@
+const whiteTaken = document.getElementById('White_captured')
+const BlackTaken = document.getElementById('Black_captured')
+
 let piece;
 let place;
 
@@ -44,14 +47,17 @@ document.addEventListener('dragend',(ev)=>{
                     let newASquare1 = ((parseInt(square[0]) +1).toString())+"_"+ squareNumber;
                     let newASquare2 = ((parseInt(square[0]) -1).toString())+"_"+ squareNumber;
                     
-                    if(place.id == newSquare || place.parentElement.id == newSquare){
+                    if(place.id == newSquare || place.parentElement.id == newSquare ||((place.parentElement.id = newASquare2)||(place.parentElement.id = newASquare1))){
                         if(place.parentElement.childElementCount == 1 && ((place.parentElement.id = newASquare2)||(place.parentElement.id = newASquare1))){
                             console.log("child")
                             let Ochild = place.id.split("_");
                             let Ychild = selection.id.split("_");
                             if(Ochild[0] != Ychild[0]){
+                                takenPiece = place
                                 place.parentElement.appendChild(selection);
-                                place.parentElement.removeChild(place)
+                                
+                                place.parentElement.removeChild(place);
+                                whiteTaken.appendChild(takenPiece);
                                 console.log("pawn");
                                 firstMove = false;
                             }
@@ -75,6 +81,7 @@ document.addEventListener('dragend',(ev)=>{
                             place.appendChild(selection);
                             console.log("pawn");
                             firstMove = false;
+                            
                     }
                 }else{
                     
@@ -94,6 +101,7 @@ document.addEventListener('dragend',(ev)=>{
                                 place.parentElement.removeChild(place)
                                 console.log("pawn");
                                 firstMove = false;
+                                
                             }
                         }else{
     
@@ -107,23 +115,23 @@ document.addEventListener('dragend',(ev)=>{
             
            
         }
-        if (piece == "Rook"){
+        else if (piece == "Rook"){
             console.log("Rook");
             place.appendChild(selection);
         }
-        if (piece == "Knight"){
+        else if (piece == "Knight"){
             console.log("Kinght");
             place.appendChild(selection);
         }
-        if (piece == "Bishop"){
+        else if (piece == "Bishop"){
             console.log("Bishop");
             place.appendChild(selection);
         }
-        if (piece == "Queen"){
+        else if (piece == "Queen"){
             console.log("Queen");
             place.appendChild(selection);
         }
-        if (piece == "King"){
+        else if (piece == "King"){
             console.log("King");
             place.appendChild(selection);
         }
