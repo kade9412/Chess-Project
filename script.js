@@ -159,8 +159,18 @@ document.addEventListener('dragend', (ev) => {
 
             }
             else if (piece == "Rook") {
-                console.log("Rook");
-                place.appendChild(selection);
+                let lenOfSquare;
+                let squareNumber;
+                let newSquare;
+                let firstMove;
+                let color = selection.id.split("_")
+                square = selection.parentElement.id.split("_")
+                for (let i = 0;i<8; i++){
+                    if(document.getElementById((square[0].toString() +"_"+ i.toString())).childElementCount == 1){
+                        console.log(square[0])
+                    }
+                }
+
             }
             else if (piece == "Knight") {
                 console.log("Kinght");
