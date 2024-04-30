@@ -64,6 +64,7 @@ document.addEventListener('dragend', (ev) => {
                                     whiteTaken.appendChild(takenPiece);
 
                                     firstMove = false;
+                                    turn = "B"
                                 }
                             }
                             else if (place.className == "White" || place.className == "Black") {
@@ -88,7 +89,6 @@ document.addEventListener('dragend', (ev) => {
                         let newSquare2 = square[0] + "_" + squareNumber2;
                         if ((place.id == newSquare1) || (place.id == newSquare2)) {
                             place.appendChild(selection);
-
                             firstMove = false;
                             turn = "W"
                         }
@@ -114,6 +114,7 @@ document.addEventListener('dragend', (ev) => {
                                     BlackTaken.appendChild(takenPiece);
 
                                     firstMove = false;
+                                    turn = "W"
                                 }
                             }
                             else if (place.className == "White" || place.className == "Black") {
