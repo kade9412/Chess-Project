@@ -37,11 +37,36 @@ document.addEventListener('dragend', (ev) => {
                         let newSquare1 = square[0] + "_" + squareNumber1;
                         let squareNumber2 = parseInt(square[lenOfSquare]) + 2
                         let newSquare2 = square[0] + "_" + squareNumber2;
-                        if ((place.id == newSquare1) || (place.id == newSquare2)) {
-                            place.appendChild(selection);
-                            firstMove = false;
-                            turn = "B"
-                        }
+                        squareNumber = parseInt(square[lenOfSquare]) + 1
+                        newSquare = square[0] + "_" + squareNumber;
+                        let newASquare1 = ((parseInt(square[0]) + 1).toString()) + "_" + squareNumber.toString();
+                        let newASquare2 = ((parseInt(square[0]) - 1).toString()) + "_" + squareNumber.toString();
+                            if (place.parentElement.childElementCount == 1 && ((place.parentElement.id == newASquare2) || (place.parentElement.id == newASquare1))) {
+
+                                let Ochild = place.id.split("_");
+                                let Ychild = selection.id.split("_");
+                                if (Ochild[0] != Ychild[0]) {
+                                    takenPiece = place
+                                    place.parentElement.appendChild(selection);
+
+                                    place.parentElement.removeChild(place);
+                                    whiteTaken.appendChild(takenPiece);
+
+                                    firstMove = false;
+                                    turn = "B"
+                                }
+                            }
+                            else if ((place.id == newSquare1) || (place.id == newSquare2)) {
+
+
+                                place.appendChild(selection);
+                                turn = "B"
+                                firstMove = false;
+                            }
+                            else {
+                                alert("invalid move")
+                            }
+                        
                     }
                     else {
 
