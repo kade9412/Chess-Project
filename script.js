@@ -185,20 +185,84 @@ document.addEventListener('dragend', (ev) => {
 
             }
             else if (piece == "Rook") {
-                
+                blocked = false;
                 let start = selection.parentElement.id.split("_")
                 square = place.id.split("_")
+                
                 if((start[0] == square[0]) ||(start[1] == square[1])){
-                    for(let i = start[0]; i<square[0]; i++){
-                        let checkHSquare = document.getElementById(start[0]+"_"+i)
-                        let checkVSquare = document.getElementById(square[0]+"_"+i)
-                        console.log(checkVSquare)
-                        console.log(checkHSquare)
+                   
+                   let direction = start[0] - square[1];
+                   console.log(direction)
+                   if(direction < 0 ){
+                    for(let i = start[0]; i<square[1]; i++){
+                        i++;
+                        let checkSquare = document.getElementById(start[0]+"_"+i)
+                        console.log(checkSquare)
+                        if(checkSquare.childElementCount == 1){
+                
+                            blocked = true;
+                            direction = 0;
+             
+                            
+                        }
                     }
-                    if(!blocked){
-                        place.appendChild(selection)
-                    }
+                   }
+                   else if(direction > 0){
+                        for(let i = start[0]; i>square[1]; i--){
+                            i--;
+                            let checkSquare = document.getElementById(start[0]+"_"+i)
+                            console.log(checkSquare)
+                            if(checkSquare.childElementCount == 1){
                     
+                                blocked = true;
+                                direction = 0;
+                                
+                                
+                            }
+                        }
+                    }
+                    else if (direction == 0 ){
+                        direction = start[1] - square[0]
+                        if(direction < 0 ){
+                            for(let i = start[0]; i<square[1]; i++){
+                                i++;
+                                let checkSquare = document.getElementById(i+"_"+start[0])
+                                console.log(checkSquare)
+                                debugger
+                                if(checkSquare.childElementCount == 1){
+                        
+                                    blocked = true;
+                                    direction = 0;
+                     
+                                    
+                                }
+                            }
+                           }
+                           else if(direction > 0){
+                                for(let i = start[0]; i>square[1]; i--){
+                                    i--;
+                                    let checkSquare = document.getElementById(i+"_"+start[0])
+                                    console.log(checkSquare)
+                                    debugger
+                                    if(chgeckSquare.childElementCount == 1){
+                            
+                                        blocked = true;
+                                        direction = 0;
+                                        
+                                        
+                                    }
+                                }
+                            }
+                    }
+                        
+
+
+                        if(!blocked){
+                            place.appendChild(selection)
+                            turn = "B"
+                            direction = 0;
+                        }
+                        
                 }
             }
             else if (piece == "Knight") {
