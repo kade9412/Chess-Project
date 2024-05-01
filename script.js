@@ -4,6 +4,7 @@ const BlackTaken = document.getElementById('Black_captured')
 let piece;
 let place;
 let turn = "W"
+let blocked = false;
 document.addEventListener('dragstart', (ev) => {
     selection = ev.target;
     piece = selection.className;
@@ -110,13 +111,38 @@ document.addEventListener('dragend', (ev) => {
                         lenOfSquare = square.length - 1;
                         let squareNumber1 = parseInt(square[lenOfSquare]) - 1
                         let newSquare1 = square[0] + "_" + squareNumber1;
-                        let squareNumber2 = parseInt(square[lenOfSquare]) - 2
+                        let squareNumber2 = parseInt(square[lenOfSquare]) - 2 
                         let newSquare2 = square[0] + "_" + squareNumber2;
-                        if ((place.id == newSquare1) || (place.id == newSquare2)) {
-                            place.appendChild(selection);
-                            firstMove = false;
-                            turn = "W"
-                        }
+                        squareNumber = parseInt(square[lenOfSquare]) - 1
+                        newSquare = square[0] + "_" + squareNumber;
+                        let newASquare1 = ((parseInt(square[0]) + 1).toString()) + "_" + squareNumber.toString();
+                        let newASquare2 = ((parseInt(square[0]) - 1).toString()) + "_" + squareNumber.toString();
+                            if (place.parentElement.childElementCount == 1 && ((place.parentElement.id == newASquare2) || (place.parentElement.id == newASquare1))) {
+
+                                let Ochild = place.id.split("_");
+                                let Ychild = selection.id.split("_");
+                                if (Ochild[0] != Ychild[0]) {
+                                    takenPiece = place
+                                    place.parentElement.appendChild(selection);
+
+                                    place.parentElement.removeChild(place);
+                                    BlackTaken.appendChild(takenPiece);
+
+                                    firstMove = false;
+                                    turn = "W"
+                                }
+                            }
+                            else if ((place.id == newSquare1) || (place.id == newSquare2)) {
+
+
+                                place.appendChild(selection);
+                                turn = "W"
+                                firstMove = false;
+                            }
+                            else {
+                                alert("invalid move")
+                            }
+                        
                     }
                     else {
 
@@ -159,18 +185,21 @@ document.addEventListener('dragend', (ev) => {
 
             }
             else if (piece == "Rook") {
-                let lenOfSquare;
-                let squareNumber;
-                let newSquare;
-                let firstMove;
-                let color = selection.id.split("_")
-                square = selection.parentElement.id.split("_")
-                for (let i = 0;i<8; i++){
-                    if(document.getElementById((square[0].toString() +"_"+ i.toString())).childElementCount == 1){
-                        console.log(square[0])
+                
+                let start = selection.parentElement.id.split("_")
+                square = place.id.split("_")
+                if((start[0] == square[0]) ||(start[1] == square[1])){
+                    for(let i = start[0]; i<square[0]; i++){
+                        let checkHSquare = document.getElementById(start[0]+"_"+i)
+                        let checkVSquare = document.getElementById(square[0]+"_"+i)
+                        console.log(checkVSquare)
+                        console.log(checkHSquare)
                     }
+                    if(!blocked){
+                        place.appendChild(selection)
+                    }
+                    
                 }
-
             }
             else if (piece == "Knight") {
                 console.log("Kinght");
