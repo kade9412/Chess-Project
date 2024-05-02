@@ -16,7 +16,7 @@ document.addEventListener('dragenter', (ev) => {
 
 
 })
-document.addEventListener('dragend', (ev) => {
+document.addEventListener('dragend', () => {
     pieceColor = selection.id.split("_")
     if (turn == pieceColor[0]) {
         if ((place.childElementCount == 0 || place.childElementCount == 1) && (place.className == "White" || place.className == "Black" || place.parentElement.className == "White" || place.parentElement.className == "Black")) {
@@ -191,78 +191,96 @@ document.addEventListener('dragend', (ev) => {
                 
                 if((start[0] == square[0]) ||(start[1] == square[1])){
                    
-                   let direction = start[0] - square[1];
-                   console.log(direction)
-                   if(direction < 0 ){
-                    for(let i = start[0]; i<square[1]; i++){
-                        i++;
-                        let checkSquare = document.getElementById(start[0]+"_"+i)
-                        console.log(checkSquare)
-                        if(checkSquare.childElementCount == 1){
+                   let v_H = start[0] - square[0];
+                   let up_down = start[1] - square[1];
+                   console.log(v_H)
+                   console.log(up_down)
                 
-                            blocked = true;
-                            direction = 0;
-             
+                    if ((v_H == 0) ){
+                        if(up_down < 0){
                             
-                        }
-                    }
-                   }
-                   else if(direction > 0){
-                        for(let i = start[0]; i>square[1]; i--){
-                            i--;
-                            let checkSquare = document.getElementById(start[0]+"_"+i)
-                            console.log(checkSquare)
-                            if(checkSquare.childElementCount == 1){
-                    
-                                blocked = true;
-                                direction = 0;
+                            for(let i = (parseInt(start[1]) +1); i<square[1]; i++){
                                 
                                 
-                            }
-                        }
-                    }
-                    else if (direction == 0 ){
-                        direction = start[1] - square[0]
-                        if(direction < 0 ){
-                            for(let i = start[0]; i<square[1]; i++){
-                                i++;
-                                let checkSquare = document.getElementById(i+"_"+start[0])
-                                console.log(checkSquare)
-                                debugger
+                                
+                                let checkSquare = document.getElementById(start[0]+"_"+i)
+                                
                                 if(checkSquare.childElementCount == 1){
-                        
+                                    
                                     blocked = true;
-                                    direction = 0;
-                     
+                                    v_H = 0;
+                                    plus_minus = 0;
+                                    
                                     
                                 }
                             }
-                           }
-                           else if(direction > 0){
-                                for(let i = start[0]; i>square[1]; i--){
-                                    i--;
-                                    let checkSquare = document.getElementById(i+"_"+start[0])
-                                    console.log(checkSquare)
-                                    debugger
-                                    if(chgeckSquare.childElementCount == 1){
+                        
+                        }
+                        else if (up_down > 0){
                             
-                                        blocked = true;
-                                        direction = 0;
-                                        
-                                        
-                                    }
+                            for(let i = (parseInt(start[1])-1); i>square[1]; i--){
+                                
+                                let checkSquare = document.getElementById(start[0]+"_"+i)
+                        
+                                if(checkSquare.childElementCount == 1){
+                        
+                                    blocked = true;
+                                    v_H = 0;
+                                    plus_minus = 0;
+                                    
+                                    
                                 }
                             }
-                    }
-                        
-
-
-                        if(!blocked){
-                            place.appendChild(selection)
-                            turn = "B"
-                            direction = 0;
                         }
                         
+
+                        
+                    }
+                    else if (v_H > 0){
+                        for(let i = (parseInt(start[0])-1); i>square[0]; i--){
+                                
+                            
+                            
+                            let checkSquare = document.getElementById(i+"_"+start[1])
+                            
+                            if(checkSquare.childElementCount == 1){
+                                
+                                blocked = true;
+                                v_H = 0;
+                                plus_minus = 0;
+                                
+                                
+                            }
+                        }
+                    }
+                    else if (v_H < 0){
+                        
+                        for(let i = (parseInt(start[0])+1); i<square[0]; i++){
+                                
+                            
+                            
+                            let checkSquare = document.getElementById(i+"_"+start[1])
+                            
+                            if(checkSquare.childElementCount == 1){
+                                
+                                blocked = true;
+                                v_H = 0;
+                                plus_minus = 0;
+                                
+                                
+                            }
+                        }
+                    }
+                    else if (v_H < 0){
+                        console.log("right")
+                    }
+
+                    if(!blocked){
+                        place.appendChild(selection)
+                        turn = "B"
+                        v_H = 0;
+                        plus_minus = 0;
+                    }
                 }
             }
             else if (piece == "Knight") {
@@ -286,6 +304,6 @@ document.addEventListener('dragend', (ev) => {
             }
         }
     }else{
-        alert("not your turn");
+        console.log("not your turn");
     }
 });
