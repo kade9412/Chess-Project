@@ -5,9 +5,11 @@ let piece;
 let place;
 let turn = "W"
 let blocked = false;
+
 document.addEventListener('dragstart', (ev) => {
     selection = ev.target;
     piece = selection.className;
+    
 
 });
 
@@ -17,6 +19,8 @@ document.addEventListener('dragenter', (ev) => {
 
 })
 document.addEventListener('dragend', () => {
+    let color = selection.id.split("_")
+    
     pieceColor = selection.id.split("_")
     if (turn == pieceColor[0]) {
         if ((place.childElementCount == 0 || place.childElementCount == 1) && (place.className == "White" || place.className == "Black" || place.parentElement.className == "White" || place.parentElement.className == "Black")) {
@@ -25,7 +29,7 @@ document.addEventListener('dragend', () => {
                 let squareNumber;
                 let newSquare;
                 let firstMove;
-                let color = selection.id.split("_")
+                
                 square = selection.parentElement.id.split("_")
 
                 if ((square[1] == "2" && color[0] == "W") || (square[1] == "7" && color[0] == "B")) {
@@ -206,10 +210,12 @@ document.addEventListener('dragend', () => {
                                 let checkSquare = document.getElementById(start[0]+"_"+i)
                                 
                                 if(checkSquare.childElementCount == 1){
-                                    
-                                    blocked = true;
-                                    v_H = 0;
-                                    plus_minus = 0;
+                                   
+                                    if (checkSquare.childElementCount == 1){
+                                        blocked = true;
+                                        v_H = 0;
+                                        plus_minus = 0;
+                                    }
                                     
                                     
                                 }
@@ -222,13 +228,10 @@ document.addEventListener('dragend', () => {
                                 
                                 let checkSquare = document.getElementById(start[0]+"_"+i)
                         
-                                if(checkSquare.childElementCount == 1){
-                        
+                                if (checkSquare.childElementCount == 1){
                                     blocked = true;
                                     v_H = 0;
                                     plus_minus = 0;
-                                    
-                                    
                                 }
                             }
                         }
@@ -243,13 +246,10 @@ document.addEventListener('dragend', () => {
                             
                             let checkSquare = document.getElementById(i+"_"+start[1])
                             
-                            if(checkSquare.childElementCount == 1){
-                                
+                            if (checkSquare.childElementCount == 1){
                                 blocked = true;
                                 v_H = 0;
                                 plus_minus = 0;
-                                
-                                
                             }
                         }
                     }
@@ -261,26 +261,48 @@ document.addEventListener('dragend', () => {
                             
                             let checkSquare = document.getElementById(i+"_"+start[1])
                             
-                            if(checkSquare.childElementCount == 1){
-                                
+                            if (checkSquare.childElementCount == 1){
                                 blocked = true;
                                 v_H = 0;
                                 plus_minus = 0;
-                                
-                                
                             }
                         }
                     }
-                    else if (v_H < 0){
-                        console.log("right")
+                    
+                    if(((place.parentElement.className === "White")||(place.parentElement.className === "Black"))){
+                        
+                        if(color[0] == "W"){
+                            
+                            takenPiece = place
+                            place.parentElement.appendChild(selection);
+    
+                            place.parentElement.removeChild(place);
+                            whiteTaken.appendChild(takenPiece);
+    
+                            place.appendChild(selection)
+                            turn = "B"
+                        }
+                        if(color[0] == "B"){
+                            
+                            takenPiece = place
+                            place.parentElement.appendChild(selection);
+    
+                            place.parentElement.removeChild(place);
+                            BlackTaken.appendChild(takenPiece);
+    
+                            place.appendChild(selection)
+                            turn = "W"
+                        }
+                        v_H = 0;
+                        plus_minus = 0;
                     }
-
-                    if(!blocked){
+                    else if (!blocked){
                         place.appendChild(selection)
                         turn = "B"
                         v_H = 0;
                         plus_minus = 0;
                     }
+                   
                 }
             }
             else if (piece == "Knight") {
