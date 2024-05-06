@@ -4,7 +4,6 @@ const BlackTaken = document.getElementById('Black_captured')
 let piece;
 let place;
 let turn = "W"
-let blocked = false;
 
 document.addEventListener('dragstart', (ev) => {
     selection = ev.target;
@@ -20,8 +19,8 @@ document.addEventListener('dragenter', (ev) => {
 })
 document.addEventListener('dragend', () => {
     let color = selection.id.split("_")
-    
-    pieceColor = selection.id.split("_")
+    let pieceColor = selection.id.split("_")
+
     if (turn == pieceColor[0]) {
         if ((place.childElementCount == 0 || place.childElementCount == 1) && (place.className == "White" || place.className == "Black" || place.parentElement.className == "White" || place.parentElement.className == "Black")) {
             if (piece == "Pawn") {
@@ -189,20 +188,35 @@ document.addEventListener('dragend', () => {
 
             }
             else if (piece == "Rook") {
-                blocked = false;
-                let start = selection.parentElement.id.split("_")
-                square = place.id.split("_")
+                let rookAttack = false;
+                let blocked = false;
+                let start = selection.parentElement.id.split("_");
+                let square = place.id.split("_");
+                let squareA = place.parentElement.id.split("_");
                 
-                if((start[0] == square[0]) ||(start[1] == square[1])){
+                if(((start[0] == square[0]) ||(start[1] == square[1]))||((start[0] == squareA[0]) ||(start[1] == squareA[1]))){
                    
                    let v_H = start[0] - square[0];
                    let up_down = start[1] - square[1];
                    console.log(v_H)
                    console.log(up_down)
-                
+                   debugger
+                   if (isNaN(v_H)){
+                    v_H = start[0] - squareA[0];
+                    up_down = start[1] - squareA[1];
+                    rookAttack = true;
+                    console.log(v_H)
+                    console.log(up_down)
+                    debugger
+                   }
+                   
+                  
+                   
                     if ((v_H == 0) ){
                         if(up_down < 0){
-                            
+                            if(rookAttack){
+
+                            }
                             for(let i = (parseInt(start[1]) +1); i<square[1]; i++){
                                 
                                 
@@ -269,7 +283,7 @@ document.addEventListener('dragend', () => {
                         }
                     }
                     
-                    if(((place.parentElement.className === "White")||(place.parentElement.className === "Black"))){
+                    if(((place.parentElement.className === "White")||(place.parentElement.className === "Black"))&& (!blocked)){
                         
                         if(color[0] == "W"){
                             
@@ -279,7 +293,7 @@ document.addEventListener('dragend', () => {
                             place.parentElement.removeChild(place);
                             whiteTaken.appendChild(takenPiece);
     
-                            place.appendChild(selection)
+                            
                             turn = "B"
                         }
                         if(color[0] == "B"){
