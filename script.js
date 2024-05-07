@@ -193,7 +193,7 @@ document.addEventListener('dragend', () => {
                 let start = selection.parentElement.id.split("_");
                 let square = place.id.split("_");
                 let squareA = place.parentElement.id.split("_");
-                debugger
+                
                 if(((start[0] == square[0]) ||(start[1] == square[1]))||((start[0] == squareA[0]) ||(start[1] == squareA[1]))){
                    
                    let v_H = start[0] - square[0];
@@ -206,13 +206,14 @@ document.addEventListener('dragend', () => {
                     rookAttack = true;
                    }
                    
-                   debugger
+                   
                    
                     if ((v_H == 0) ){
                         debugger
                         if(up_down < 0){
-                            debugger
+                            
                             if(rookAttack){
+                                
                                 for(let i = (parseInt(start[1]) +1); i<squareA[1]; i++){
                                 
                                 
@@ -231,6 +232,7 @@ document.addEventListener('dragend', () => {
                                  
                                 }
                             }else{
+                                
                                 for(let i = (parseInt(start[1]) +1); i<square[1]; i++){
                                 
                                 
@@ -253,8 +255,9 @@ document.addEventListener('dragend', () => {
                             }
                             
                         else if (up_down > 0){
-                            debugger
+                            
                             if(rookAttack){
+                                
                                 for(let i = (parseInt(start[1])-1); i>squareA[1]; i--){
                                 
                                     let checkSquare = document.getElementById(start[0]+"_"+i)
@@ -266,6 +269,7 @@ document.addEventListener('dragend', () => {
                                     }
                                 }
                             }else{
+                                
                                 for(let i = (parseInt(start[1])-1); i>square[1]; i--){
                                 
                                     let checkSquare = document.getElementById(start[0]+"_"+i)
@@ -287,9 +291,9 @@ document.addEventListener('dragend', () => {
                     else if (v_H > 0){
                         debugger
                         if(rookAttack){
-                            for(let i = (parseInt(start[1])-1); i>squareA[1]; i--){
+                            for(let i = (parseInt(start[0])-1); i>squareA[0]; i--){
                             
-                                let checkSquare = document.getElementById(start[0]+"_"+i)
+                                let checkSquare = document.getElementById(i+"_"+start[1])
                         
                                 if (checkSquare.childElementCount == 1){
                                     blocked = true;
@@ -298,9 +302,10 @@ document.addEventListener('dragend', () => {
                                 }
                             }
                         }else{
-                            for(let i = (parseInt(start[1])-1); i>square[1]; i--){
                             
-                                let checkSquare = document.getElementById(start[0]+"_"+i)
+                            for(let i = (parseInt(start[0])-1); i>square[0]; i--){
+                            
+                                let checkSquare = document.getElementById(i+"_"+start[1])
                         
                                 if (checkSquare.childElementCount == 1){
                                     blocked = true;
@@ -314,13 +319,14 @@ document.addEventListener('dragend', () => {
                     else if (v_H < 0){
                         debugger
                         if(rookAttack){
-                            for(let i = (parseInt(start[1]) +1); i<squareA[1]; i++){
+                            
+                            for(let i = (parseInt(start[0]) +1); i<squareA[0]; i++){
                             
                             
                             
-                                let checkSquare = document.getElementById(start[0]+"_"+i)
+                                let checkSquare = document.getElementById(i+"_"+start[1])
+                                debugger
                                 
-                                if(checkSquare.childElementCount == 1){
                                    
                                     if (checkSquare.childElementCount == 1){
                                         blocked = true;
@@ -329,20 +335,19 @@ document.addEventListener('dragend', () => {
                                     }
                                     
                                     
-                                }
+                                
                             }
                         }else{
-                            debugger
-                            for(let i = (parseInt(start[1]) +1); i<square[1]; i++){
                             
                             
+                            for(let i = (parseInt(start[0]) +1); i<square[0]; i++){
                             
-                                let checkSquare = document.getElementById(start[0]+"_"+i)
-                                debugger
+                                let checkSquare = document.getElementById(i+"_"+start[1])
+                                
                                
                                    
                                     if (checkSquare.childElementCount == 1){
-                                        debugger
+                                        
                                         blocked = true;
                                         v_H = 0;
                                         plus_minus = 0;
@@ -356,7 +361,8 @@ document.addEventListener('dragend', () => {
                     }
                     
                     if(((place.parentElement.className === "White")||(place.parentElement.className === "Black"))&& (!blocked)){
-                        let takeColor = place.className.split("_")
+                        let takeColor = place.id.split("")
+                        
                         if((color[0] == "W")&&(takeColor[0] != color[0])){
                             
                             takenPiece = place
@@ -387,6 +393,7 @@ document.addEventListener('dragend', () => {
                         plus_minus = 0;
                     }
                     else if (!blocked){
+                        
                         place.appendChild(selection)
                         turn = "B"
                         v_H = 0;
@@ -415,7 +422,7 @@ document.addEventListener('dragend', () => {
                 console.log(squareLong4)
                 console.log(squareShort4)
 
-                if(place ==(squareShort1 || squareLong1 || squareLong2 || squareShort2 || squareShort3 || squareLong3 || squareLong4 || squareShort4)){
+                if(place ===(squareShort1 || squareLong1 || squareLong2 || squareShort2 || squareShort3 || squareLong3 || squareLong4 || squareShort4)){
                    debugger
                     if(place.parentElement.childElementCount == 1){
                         if(color[0] == "W"){
@@ -468,6 +475,6 @@ document.addEventListener('dragend', () => {
             }
         }
     }else{
-        console.log("not your turn");
+        alert("not your turn");
     }
 });
